@@ -1,0 +1,67 @@
+============================================================
+POSTGRESQL - WYNIKI BADAŃ EMPIRYCZNYCH
+============================================================
+
+1. Test 1: Konfiguracja domyślna (Replikacja asynchroniczna)
+- Przebieg: 100 000 operacji (Workload A: 50% read / 50% update) przy odłączonej replice 1
+- Runtime: 212 434 ms (~212 s)
+- Throughput: 470.73 ops/sec
+- READ:
+  * Liczba operacji: 50 167 (Return=OK: 50 167)
+  * Average Latency: 501.16 us (~0.50 ms)
+  * Max Latency: 13 551 us (~13.55 ms)
+  * 95th Percentile: 597 us
+  * 99th Percentile: 700 us
+- UPDATE:
+  * Liczba operacji: 49 833 (Return=OK: 49 833)
+  * Average Latency: 3 744.42 us (~3.74 ms)
+  * Max Latency: 10 271 us (~10.27 ms)
+  * 95th Percentile: 4 939 us
+  * 99th Percentile: 5 115 us
+Wniosek: Brak utraty dostępności na węźle głównym; zachowanie zbliżone do AP kosztem asynchroniczności replikacji.
+
+------------------------------------------------------------
+
+2. Test 2: Scenariusz 1 & 4 - Podział sieciowy i odzyskiwanie (Replikacja synchroniczna)
+- Konfiguracja: synchronous_standby_names = '*'
+- Przebieg: 10 000 operacji (Workload A), w trakcie odłączono repliki od sieci
+- Runtime: 975 188 ms (~975 s)
+- Throughput: 10.25 ops/sec (drastyczny spadek ze względu na blokadę)
+- READ:
+  * Liczba operacji: 4 920 (Return=OK: 4 920)
+  * Average Latency: 508.80 us (~0.51 ms)
+  * Max Latency: 4 599 us (~4.60 ms)
+  * 95th Percentile: 607 us
+  * 99th Percentile: 694 us
+- UPDATE:
+  * Liczba operacji: 5 080 (Return=OK: 5 080)
+  * Average Latency: 191 365.41 us (~191.37 ms)
+  * Max Latency: 945 815 551 us (~945.8 s - czas trwania blokady na potwierdzenie z repliki)
+  * 95th Percentile: 6 219 us
+- Weryfikacja spójności (Scenariusz 4):
+  * Liczba rekordów na primary: 100 000
+  * Liczba rekordów na replica: 100 000
+  * Status: Pełna spójność po wznowieniu replikacji
+Wniosek: Potwierdzenie modelu CP. Węzeł główny wstrzymuje zatwierdzanie transakcji zapisu (poświęca dostępność) w celu zagwarantowania spójności replik.
+============================================================
+3. Test 3: Scenariusz 3 - Symulacja opóźnień sieciowych (Model PACELC)
+- Konfiguracja: Replikacja synchroniczna, sztuczne opóźnienie 50 ms na interfejsie węzła głównego
+- Przebieg: 5 000 operacji (Workload A: 50% read / 50% update)
+- Runtime: 392 875 ms (~392 s)
+- Throughput: 12.72 ops/sec
+- READ:
+  * Liczba operacji: 2 487 (Return=OK: 2 487)
+  * Average Latency: 50 714.64 us (~50.71 ms)
+- UPDATE:
+  * Liczba operacji: 2 513 (Return=OK: 2 513)
+  * Average Latency: 105 811.54 us (~105.81 ms)
+Wniosek: Potwierdzenie zachowania właściwego dla klasyfikacji PACELC (PC/EC). Utrzymanie silnej spójności w warunkach normalnego działania wymusza synchroniczną komunikację między replikami, co bezpośrednio i proporcjonalnie zwiększa opóźnienia operacji zapisu w stosunku do operacji odczytu.
+============================================================
+4. Test 4: Scenariusz 2 - Symulacja awarii węzła nadrzędnego (Failover)
+- Konfiguracja: Replikacja synchroniczna, wyłączenie węzła primary w trakcie testu
+- Przebieg: Zlecono 10 000 operacji (Workload A). 
+- Wyniki po wyłączeniu węzła:
+  * Liczba błędów zapisu (UPDATE FAILED): 3 785
+  * Liczba błędów odczytu (READ FAILED): 3 710
+  * Błąd połączenia: org.postgresql.util.PSQLException: This connection has been closed
+Wniosek: Potwierdzenie braku wysokiej dostępności w architekturze scentralizowanej w momencie awarii pojedynczego punktu zapisu. System wymaga procedury failover do przywrócenia funkcjonalności klastra.
