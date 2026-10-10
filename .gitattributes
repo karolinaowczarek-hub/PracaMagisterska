@@ -1,0 +1,2 @@
+﻿*.sh text eol=lf
+init/**/*.sh text eol=lf

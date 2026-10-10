@@ -1,0 +1,34 @@
+1:C 02 Oct 2026 13:43:49.824 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 13:43:49.824 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 13:43:49.824 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 13:43:49.824 * Configuration loaded
+1:M 02 Oct 2026 13:43:49.824 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 13:43:49.825 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 13:43:49.825 * No cluster configuration found, I'm dd1526b1fa289c1a2596bdbbd5135233f10e1c1e
+1:M 02 Oct 2026 13:43:49.837 * Server initialized
+1:M 02 Oct 2026 13:43:49.837 * Ready to accept connections tcp
+1:M 02 Oct 2026 13:43:56.673 * configEpoch set to 2 via CLUSTER SET-CONFIG-EPOCH
+1:M 02 Oct 2026 13:43:58.678 * Replica 172.34.0.16:6379 asks for synchronization
+1:M 02 Oct 2026 13:43:58.678 * Partial resynchronization not accepted: Replication ID mismatch (Replica asked for '24e082403cdebc95c74cd7ce212cabf45f1593fa', my replication IDs are '980e909e3d8190fcc93646baacec284ec74f038f' and '0000000000000000000000000000000000000000')
+1:M 02 Oct 2026 13:43:58.678 * Replication backlog created, my new replication IDs are '5e140bc626e14890a5bb36b456b016ec5ce32514' and '0000000000000000000000000000000000000000'
+1:M 02 Oct 2026 13:43:58.678 * Delay next BGSAVE for diskless SYNC
+1:M 02 Oct 2026 13:43:58.768 * Node 55639bb241113ec5bbff8f3afcc174c09f24b4ef () is no longer master of shard d410f73c14138e697ba3807276ab59ec4829ac12; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:43:58.768 * Node 55639bb241113ec5bbff8f3afcc174c09f24b4ef () is now part of shard e9414919a3238684338f67c46a95cc69bec7207a
+1:M 02 Oct 2026 13:43:59.473 * Node 6af5a1ffa9f4fdd00145be4c4ac9566bd9eaf9d5 () is no longer master of shard 92e2e53c99e73d3ddca66e2d1b9918b4d2d16b37; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:43:59.473 * Node 6af5a1ffa9f4fdd00145be4c4ac9566bd9eaf9d5 () is now part of shard e6a3ffde42c0606aa8b486586cfb29994f23833c
+1:M 02 Oct 2026 13:44:00.775 * Node 4af488dd346a1a4dcaad4343b4063363bcbd5367 () is no longer master of shard 20c9c3aaff653e8b887e606c19bcf2f15f229cca; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:44:00.775 * Node 4af488dd346a1a4dcaad4343b4063363bcbd5367 () is now part of shard eaf5906ef6a6e6c0a309ce009b5a582c09c91ec2
+1:M 02 Oct 2026 13:44:01.678 * Cluster state changed: ok
+1:M 02 Oct 2026 13:44:03.887 * Starting BGSAVE for SYNC with target: replicas sockets
+1:M 02 Oct 2026 13:44:03.887 * Background RDB transfer started by pid 32
+32:C 02 Oct 2026 13:44:03.888 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB
+1:M 02 Oct 2026 13:44:03.888 * Diskless rdb transfer, done reading from pipe, 1 replicas still up.
+1:M 02 Oct 2026 13:44:03.898 * Background RDB transfer terminated with success
+1:M 02 Oct 2026 13:44:03.898 * Streamed RDB transfer with replica 172.34.0.16:6379 succeeded (socket). Waiting for REPLCONF ACK from replica to enable streaming
+1:M 02 Oct 2026 13:44:03.898 * Synchronization with replica 172.34.0.16:6379 succeeded
+1:M 02 Oct 2026 13:44:59.033 * Marking node 8b43568d5c83dce47f79a61ce379e52205869f32 () as failing (quorum reached).
+1:M 02 Oct 2026 13:44:59.033 # Cluster state changed: fail
+1:M 02 Oct 2026 13:45:00.117 * Failover auth granted to 4af488dd346a1a4dcaad4343b4063363bcbd5367 () for epoch 7
+1:M 02 Oct 2026 13:45:00.142 * Cluster state changed: ok
+1:M 02 Oct 2026 13:45:43.009 * A failover occurred in shard eaf5906ef6a6e6c0a309ce009b5a582c09c91ec2; node 8b43568d5c83dce47f79a61ce379e52205869f32 () lost 0 slot(s) to node 4af488dd346a1a4dcaad4343b4063363bcbd5367 () with a config epoch of 7
+1:M 02 Oct 2026 13:45:43.205 * Clear FAIL state for node 8b43568d5c83dce47f79a61ce379e52205869f32 ():replica is reachable again.

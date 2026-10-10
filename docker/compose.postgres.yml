@@ -1,0 +1,156 @@
+# PostgreSQL: 1 primary + 2 synchronous standbys
+
+x-pg-common: &pg-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      BASE_IMAGE: postgres:16
+  image: capbench-postgres:local
+  cap_add:
+    - NET_ADMIN
+  environment: &pg-env
+    POSTGRES_USER: cap
+    POSTGRES_PASSWORD: cap
+    POSTGRES_DB: capbench
+    POSTGRES_HOST_AUTH_METHOD: trust
+    POSTGRES_INITDB_ARGS: "--data-checksums"
+  healthcheck: &pg-health
+    test: ["CMD-SHELL", "pg_isready -U cap -d capbench && psql -U cap -d capbench -c 'SELECT 1' >/dev/null"]
+    interval: 3s
+    timeout: 5s
+    retries: 40
+    start_period: 10s
+  networks:
+    # client network first
+    cap_client_net: {}
+    cap_cluster_net: {}
+
+services:
+  pg-node1:
+    <<: *pg-common
+    container_name: pg-node1
+    hostname: pg-node1
+    ports:
+      - "15432:5432"
+    volumes:
+      - pg-node1-data:/var/lib/postgresql/data
+      - ../init/postgres:/docker-entrypoint-initdb.d:ro
+    command:
+      - postgres
+      - -c
+      - "listen_addresses=*"
+      - -c
+      - wal_level=replica
+      - -c
+      - max_wal_senders=10
+      - -c
+      - max_replication_slots=10
+      - -c
+      - hot_standby=on
+      - -c
+      - synchronous_commit=on
+      - -c
+      - wal_log_hints=on
+      - -c
+      - wal_keep_size=1GB
+      - -c
+      - statement_timeout=5000
+    networks:
+      cap_client_net:
+        ipv4_address: 172.29.0.11
+      cap_cluster_net:
+        ipv4_address: 172.28.0.11
+
+  pg-node2:
+    <<: *pg-common
+    container_name: pg-node2
+    hostname: pg-node2
+    ports:
+      - "15433:5432"
+    volumes:
+      - pg-node2-data:/var/lib/postgresql/data
+    depends_on:
+      pg-node1:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -euo pipefail
+        PRIMARY_HOST=172.28.0.11
+        APP_NAME=r1
+        if [ ! -s /var/lib/postgresql/data/PG_VERSION ]; then
+          echo "Bootstrapping replica pg-node2 from $${PRIMARY_HOST}..."
+          until pg_isready -h "$${PRIMARY_HOST}" -U cap -d capbench; do sleep 1; done
+          rm -rf /var/lib/postgresql/data/*
+          chown -R postgres:postgres /var/lib/postgresql/data
+          gosu postgres pg_basebackup -h "$${PRIMARY_HOST}" -U replicator -D /var/lib/postgresql/data -Fp -Xs -P -R
+          gosu postgres bash -c "sed -i '/primary_conninfo/d' /var/lib/postgresql/data/postgresql.auto.conf; echo \"primary_conninfo = 'host=$${PRIMARY_HOST} port=5432 user=replicator application_name=$${APP_NAME}'\" >> /var/lib/postgresql/data/postgresql.auto.conf"
+        fi
+        exec docker-entrypoint.sh postgres \
+          -c 'listen_addresses=*' \
+          -c hot_standby=on \
+          -c wal_log_hints=on \
+          -c wal_keep_size=1GB \
+          -c statement_timeout=5000
+    networks:
+      cap_client_net:
+        ipv4_address: 172.29.0.12
+      cap_cluster_net:
+        ipv4_address: 172.28.0.12
+
+  pg-node3:
+    <<: *pg-common
+    container_name: pg-node3
+    hostname: pg-node3
+    ports:
+      - "15434:5432"
+    volumes:
+      - pg-node3-data:/var/lib/postgresql/data
+    depends_on:
+      pg-node1:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -euo pipefail
+        PRIMARY_HOST=172.28.0.11
+        APP_NAME=r2
+        if [ ! -s /var/lib/postgresql/data/PG_VERSION ]; then
+          echo "Bootstrapping replica pg-node3 from $${PRIMARY_HOST}..."
+          until pg_isready -h "$${PRIMARY_HOST}" -U cap -d capbench; do sleep 1; done
+          rm -rf /var/lib/postgresql/data/*
+          chown -R postgres:postgres /var/lib/postgresql/data
+          gosu postgres pg_basebackup -h "$${PRIMARY_HOST}" -U replicator -D /var/lib/postgresql/data -Fp -Xs -P -R
+          gosu postgres bash -c "sed -i '/primary_conninfo/d' /var/lib/postgresql/data/postgresql.auto.conf; echo \"primary_conninfo = 'host=$${PRIMARY_HOST} port=5432 user=replicator application_name=$${APP_NAME}'\" >> /var/lib/postgresql/data/postgresql.auto.conf"
+        fi
+        exec docker-entrypoint.sh postgres \
+          -c 'listen_addresses=*' \
+          -c hot_standby=on \
+          -c wal_log_hints=on \
+          -c wal_keep_size=1GB \
+          -c statement_timeout=5000
+    networks:
+      cap_client_net:
+        ipv4_address: 172.29.0.13
+      cap_cluster_net:
+        ipv4_address: 172.28.0.13
+
+networks:
+  cap_cluster_net:
+    name: cap_cluster_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+  cap_client_net:
+    name: cap_client_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+
+volumes:
+  pg-node1-data:
+  pg-node2-data:
+  pg-node3-data:

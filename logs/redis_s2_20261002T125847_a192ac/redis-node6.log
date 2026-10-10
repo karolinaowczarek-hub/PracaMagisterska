@@ -1,0 +1,29 @@
+1:C 02 Oct 2026 12:58:52.282 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 12:58:52.282 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 12:58:52.282 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 12:58:52.282 * Configuration loaded
+1:M 02 Oct 2026 12:58:52.282 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 12:58:52.283 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 12:58:52.283 * No cluster configuration found, I'm 8a87c9ff3d59c37c17a4cd31b005594308a48eb5
+1:M 02 Oct 2026 12:58:52.294 * Server initialized
+1:M 02 Oct 2026 12:58:52.294 * Ready to accept connections tcp
+1:M 02 Oct 2026 12:58:58.741 * configEpoch set to 6 via CLUSTER SET-CONFIG-EPOCH
+1:S 02 Oct 2026 12:59:00.745 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+1:S 02 Oct 2026 12:59:00.745 * Connecting to MASTER 172.34.0.12:6379
+1:S 02 Oct 2026 12:59:00.745 * MASTER <-> REPLICA sync started
+1:S 02 Oct 2026 12:59:00.745 * Cluster state changed: ok
+1:S 02 Oct 2026 12:59:00.745 * Non blocking connect for SYNC fired the event.
+1:S 02 Oct 2026 12:59:00.745 * Master replied to PING, replication can continue...
+1:S 02 Oct 2026 12:59:00.746 * Trying a partial resynchronization (request 12bcda36e4b11c1fe1b56b141bf4de4b98f8470e:1).
+1:S 02 Oct 2026 12:59:01.806 * Node 5e17f77f084079e6113dd5376d5bfb5d1e2ad3ce () is no longer master of shard b4e83f376f93be75deb8356c74d070238ba355f5; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 12:59:01.806 * Node 5e17f77f084079e6113dd5376d5bfb5d1e2ad3ce () is now part of shard b9bc52ef9ed375b539f2242c45a536c99edf9aa6
+1:S 02 Oct 2026 12:59:05.721 * Full resync from master: 0168de0d8591e18898117d2cceb7339261e9f8ac:14
+1:S 02 Oct 2026 12:59:05.721 * MASTER <-> REPLICA sync: receiving streamed RDB from master with EOF to disk
+1:S 02 Oct 2026 12:59:05.721 * Discarding previously cached master state.
+1:S 02 Oct 2026 12:59:05.721 * MASTER <-> REPLICA sync: Flushing old data
+1:S 02 Oct 2026 12:59:05.722 * MASTER <-> REPLICA sync: Loading DB in memory
+1:S 02 Oct 2026 12:59:05.732 * Loading RDB produced by version 7.4.11
+1:S 02 Oct 2026 12:59:05.732 * RDB age 0 seconds
+1:S 02 Oct 2026 12:59:05.732 * RDB memory usage when created 2.51 Mb
+1:S 02 Oct 2026 12:59:05.732 * Done loading RDB, keys loaded: 0, keys expired: 0.
+1:S 02 Oct 2026 12:59:05.732 * MASTER <-> REPLICA sync: Finished with success

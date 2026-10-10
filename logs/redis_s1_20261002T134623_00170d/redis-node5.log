@@ -1,0 +1,54 @@
+1:C 02 Oct 2026 13:46:27.437 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 13:46:27.437 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 13:46:27.437 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 13:46:27.437 * Configuration loaded
+1:M 02 Oct 2026 13:46:27.438 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 13:46:27.438 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 13:46:27.439 * No cluster configuration found, I'm c9643957a04178f1f65c5f0d7107f126f18c26b7
+1:M 02 Oct 2026 13:46:27.449 * Server initialized
+1:M 02 Oct 2026 13:46:27.449 * Ready to accept connections tcp
+1:M 02 Oct 2026 13:46:33.740 * configEpoch set to 5 via CLUSTER SET-CONFIG-EPOCH
+1:S 02 Oct 2026 13:46:35.748 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+1:S 02 Oct 2026 13:46:35.748 * Connecting to MASTER 172.34.0.11:6379
+1:S 02 Oct 2026 13:46:35.748 * MASTER <-> REPLICA sync started
+1:S 02 Oct 2026 13:46:35.748 * Cluster state changed: ok
+1:S 02 Oct 2026 13:46:35.748 * Non blocking connect for SYNC fired the event.
+1:S 02 Oct 2026 13:46:35.748 * Master replied to PING, replication can continue...
+1:S 02 Oct 2026 13:46:35.749 * Trying a partial resynchronization (request 41a9805b147ae04f6a9d3a8823855e67e35331e4:1).
+1:S 02 Oct 2026 13:46:36.138 * Node 9944f5d8b9f45eb8985a9b734cc85d5a01239449 () is no longer master of shard 227f8140180252bbc5e119f4a76edcde517f21ec; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 13:46:36.138 * Node 9944f5d8b9f45eb8985a9b734cc85d5a01239449 () is now part of shard 9f5d798014c0b4cca668a478ffbedfae50df420c
+1:S 02 Oct 2026 13:46:37.385 * Node 0398f7bb650b7a4ffac026b0c4659eb5294ead66 () is no longer master of shard a7eda367013905815877f133f6d9ee6b8d7cd745; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 13:46:37.385 * Node 0398f7bb650b7a4ffac026b0c4659eb5294ead66 () is now part of shard 7fab4b36bdd50e98d7ad0aaa86ce43e89b5ecaea
+1:S 02 Oct 2026 13:46:40.094 * Full resync from master: 6b41efa8aba5dc5ee8bf81d00bee66f50ab6287b:14
+1:S 02 Oct 2026 13:46:40.094 * MASTER <-> REPLICA sync: receiving streamed RDB from master with EOF to disk
+1:S 02 Oct 2026 13:46:40.094 * Discarding previously cached master state.
+1:S 02 Oct 2026 13:46:40.094 * MASTER <-> REPLICA sync: Flushing old data
+1:S 02 Oct 2026 13:46:40.095 * MASTER <-> REPLICA sync: Loading DB in memory
+1:S 02 Oct 2026 13:46:40.144 * Loading RDB produced by version 7.4.11
+1:S 02 Oct 2026 13:46:40.144 * RDB age 0 seconds
+1:S 02 Oct 2026 13:46:40.144 * RDB memory usage when created 2.41 Mb
+1:S 02 Oct 2026 13:46:40.144 * Done loading RDB, keys loaded: 0, keys expired: 0.
+1:S 02 Oct 2026 13:46:40.144 * MASTER <-> REPLICA sync: Finished with success
+1:S 02 Oct 2026 13:47:31.144 * FAIL message received from 0398f7bb650b7a4ffac026b0c4659eb5294ead66 () about e644a7094a4d9df44b5422744b1f046b96e2233d ()
+1:S 02 Oct 2026 13:47:31.144 # Cluster state changed: fail
+1:S 02 Oct 2026 13:47:31.239 * Start of election delayed for 596 milliseconds (rank #0, offset 13866170).
+1:S 02 Oct 2026 13:47:31.842 * Starting a failover election for epoch 7.
+1:S 02 Oct 2026 13:47:31.871 * Failover election won: I'm the new master.
+1:S 02 Oct 2026 13:47:31.871 * configEpoch set to 7 after successful failover
+1:M 02 Oct 2026 13:47:31.871 * Connection with master lost.
+1:M 02 Oct 2026 13:47:31.871 * Caching the disconnected master state.
+1:M 02 Oct 2026 13:47:31.871 * Discarding previously cached master state.
+1:M 02 Oct 2026 13:47:31.871 * Setting secondary replication ID to 6b41efa8aba5dc5ee8bf81d00bee66f50ab6287b, valid up to offset: 13866171. New replication ID is 4bf334c8bd73812d2b58a3ec570e2d81f36af2f8
+1:M 02 Oct 2026 13:47:31.871 * Cluster state changed: ok
+1:M 02 Oct 2026 13:48:33.452 * Replica 172.34.0.11:6379 asks for synchronization
+1:M 02 Oct 2026 13:48:33.452 * Partial resynchronization not accepted: Requested offset for second ID was 13870431, but I can reply up to 13866171
+1:M 02 Oct 2026 13:48:33.452 * Delay next BGSAVE for diskless SYNC
+1:M 02 Oct 2026 13:48:36.510 * A failover occurred in shard 898ab83459ce157ab0feb307430fac50fe916822; node e644a7094a4d9df44b5422744b1f046b96e2233d () lost 0 slot(s) to node c9643957a04178f1f65c5f0d7107f126f18c26b7 () with a config epoch of 7
+1:M 02 Oct 2026 13:48:37.018 * Clear FAIL state for node e644a7094a4d9df44b5422744b1f046b96e2233d ():replica is reachable again.
+1:M 02 Oct 2026 13:48:38.992 * Starting BGSAVE for SYNC with target: replicas sockets
+1:M 02 Oct 2026 13:48:38.992 * Background RDB transfer started by pid 438
+438:C 02 Oct 2026 13:48:39.007 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB
+1:M 02 Oct 2026 13:48:39.007 * Diskless rdb transfer, done reading from pipe, 1 replicas still up.
+1:M 02 Oct 2026 13:48:39.032 * Background RDB transfer terminated with success
+1:M 02 Oct 2026 13:48:39.033 * Streamed RDB transfer with replica 172.34.0.11:6379 succeeded (socket). Waiting for REPLCONF ACK from replica to enable streaming
+1:M 02 Oct 2026 13:48:39.033 * Synchronization with replica 172.34.0.11:6379 succeeded

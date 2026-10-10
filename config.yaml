@@ -1,0 +1,180 @@
+# CAP benchmark — PostgreSQL, MongoDB, Cassandra i Redis
+
+random_seed: 42
+
+phase_durations:
+  s1_baseline_s: 30
+  s1_partition_s: 60
+  s2_warmup_s: 15
+  s2_after_failover_s: 60
+  s2_recovery_timeout_s: 180
+  s3_load_s: 60
+  s3_stabilize_s: 20
+  s4_majority_writes: 2000
+  s4_sync_timeout_s: 300
+  s4_poll_interval_ms: 500
+
+workload:
+  threads: 4
+  read_write_ratio: 0.5
+  key_space_size: 10000
+  value_size_bytes: 128
+  op_timeout_ms: 5000
+
+runs_per_scenario:
+  s1: 3
+  s2: 10
+  s3: 3
+  s4: 3
+
+netem_levels_ms: [0, 50, 100, 200]
+
+consistency:
+  postgres:
+    synchronous_commit: "on"
+    synchronous_standby_names: "ANY 1 (r0, r1, r2)"
+  mongo:
+    write_concern: majority
+    read_concern: majority
+  cassandra:
+    consistency_level: quorum
+    consistency_levels: [one, quorum]
+    replication_factor: 3
+  redis:
+    replication: async
+    wait_replicas: 0
+
+profiles:
+  full: {}
+  fast:
+    phase_durations:
+      s1_baseline_s: 5
+      s1_partition_s: 5
+      s2_warmup_s: 5
+      s2_after_failover_s: 10
+      s2_recovery_timeout_s: 180
+      s3_load_s: 5
+      s3_stabilize_s: 3
+      s4_majority_writes: 200
+      s4_sync_timeout_s: 60
+      s4_poll_interval_ms: 500
+    runs_per_scenario:
+      s1: 1
+      s2: 1
+      s3: 1
+      s4: 1
+    netem_levels_ms: [0, 50]
+
+postgres:
+  image: postgres:16
+  user: cap
+  password: cap
+  database: capbench
+  nodes:
+    - name: pg-node1
+      role: primary
+      host_port: 15432
+      ipv4_cluster: "172.28.0.11"
+      ipv4_client: "172.29.0.11"
+      application_name: r0
+    - name: pg-node2
+      role: replica
+      host_port: 15433
+      ipv4_cluster: "172.28.0.12"
+      ipv4_client: "172.29.0.12"
+      application_name: r1
+    - name: pg-node3
+      role: replica
+      host_port: 15434
+      ipv4_cluster: "172.28.0.13"
+      ipv4_client: "172.29.0.13"
+      application_name: r2
+  networks:
+    cluster: cap_cluster_net
+    client: cap_client_net
+  cluster_subnet: "172.28.0.0/16"
+  client_subnet: "172.29.0.0/16"
+
+mongo:
+  image: mongo:7
+  database: capbench
+  replica_set: rs0
+  write_concern: majority
+  nodes:
+    - name: mongo-node1
+      host_port: 27017
+      ipv4_cluster: "172.30.0.11"
+      ipv4_client: "172.31.0.11"
+    - name: mongo-node2
+      host_port: 27018
+      ipv4_cluster: "172.30.0.12"
+      ipv4_client: "172.31.0.12"
+    - name: mongo-node3
+      host_port: 27019
+      ipv4_cluster: "172.30.0.13"
+      ipv4_client: "172.31.0.13"
+  networks:
+    cluster: cap_mongo_cluster_net
+    client: cap_mongo_client_net
+  cluster_subnet: "172.30.0.0/16"
+  client_subnet: "172.31.0.0/16"
+
+cassandra:
+  image: cassandra:4.1
+  keyspace: capbench
+  replication_factor: 3
+  consistency_level: quorum
+  nodes:
+    - name: cassandra-node1
+      host_port: 9042
+      ipv4_cluster: "172.32.0.11"
+      ipv4_client: "172.33.0.11"
+    - name: cassandra-node2
+      host_port: 9043
+      ipv4_cluster: "172.32.0.12"
+      ipv4_client: "172.33.0.12"
+    - name: cassandra-node3
+      host_port: 9044
+      ipv4_cluster: "172.32.0.13"
+      ipv4_client: "172.33.0.13"
+  networks:
+    cluster: cap_cassandra_cluster_net
+    client: cap_cassandra_client_net
+  cluster_subnet: "172.32.0.0/16"
+  client_subnet: "172.33.0.0/16"
+
+redis:
+  image: redis:7
+  wait_replicas: 0
+  nodes:
+    - name: redis-node1
+      host_port: 16379
+      ipv4_cluster: "172.34.0.11"
+      ipv4_client: "172.35.0.11"
+    - name: redis-node2
+      host_port: 16380
+      ipv4_cluster: "172.34.0.12"
+      ipv4_client: "172.35.0.12"
+    - name: redis-node3
+      host_port: 16381
+      ipv4_cluster: "172.34.0.13"
+      ipv4_client: "172.35.0.13"
+    - name: redis-node4
+      host_port: 16382
+      ipv4_cluster: "172.34.0.14"
+      ipv4_client: "172.35.0.14"
+    - name: redis-node5
+      host_port: 16383
+      ipv4_cluster: "172.34.0.15"
+      ipv4_client: "172.35.0.15"
+    - name: redis-node6
+      host_port: 16384
+      ipv4_cluster: "172.34.0.16"
+      ipv4_client: "172.35.0.16"
+  networks:
+    cluster: cap_redis_cluster_net
+    client: cap_redis_client_net
+  cluster_subnet: "172.34.0.0/16"
+  client_subnet: "172.35.0.0/16"
+
+poll_interval_ms: 100

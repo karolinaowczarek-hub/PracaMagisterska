@@ -1,0 +1,21 @@
+1:C 02 Oct 2026 13:46:09.594 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 13:46:09.594 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 13:46:09.594 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 13:46:09.594 * Configuration loaded
+1:M 02 Oct 2026 13:46:09.594 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 13:46:09.595 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 13:46:09.595 * No cluster configuration found, I'm dde486d796d6728af643d129c00ae0b24460679b
+1:M 02 Oct 2026 13:46:09.605 * Server initialized
+1:M 02 Oct 2026 13:46:09.605 * Ready to accept connections tcp
+1:M 02 Oct 2026 13:46:16.392 * configEpoch set to 3 via CLUSTER SET-CONFIG-EPOCH
+1:M 02 Oct 2026 13:46:18.395 * Replica 172.34.0.14:6379 asks for synchronization
+1:M 02 Oct 2026 13:46:18.395 * Partial resynchronization not accepted: Replication ID mismatch (Replica asked for 'c7bc39c13f515b1d67de49c0ef2fe042d9aa4142', my replication IDs are 'fbcf5b01c183e3f42c0b96b076a2efafa1794e41' and '0000000000000000000000000000000000000000')
+1:M 02 Oct 2026 13:46:18.395 * Replication backlog created, my new replication IDs are '03ac271f7ef3835a62b37852d36fb77c3ba1953a' and '0000000000000000000000000000000000000000'
+1:M 02 Oct 2026 13:46:18.395 * Delay next BGSAVE for diskless SYNC
+1:M 02 Oct 2026 13:46:18.534 * Node 73534b225bbb7b2bf62fbd6e580b9026fac928a6 () is no longer master of shard 1c57cc4824e707fed1e0cdf635bc879006a1a320; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:46:18.534 * Node 73534b225bbb7b2bf62fbd6e580b9026fac928a6 () is now part of shard fe1055e6ac17ca39a1b3fcf782a757d370b67c95
+1:M 02 Oct 2026 13:46:18.792 * Node 85df0430997e73b00e08c26918e1951494dd98fc () is no longer master of shard 752e732d45444ff90375761354f650ca0fe50140; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:46:18.792 * Node 85df0430997e73b00e08c26918e1951494dd98fc () is now part of shard 2587d0679d771686b387eac8e402267fc6873e7e
+1:M 02 Oct 2026 13:46:19.373 * Node d1b2e5c776a0140a34443a50f1bf197b6dbbe20a () is no longer master of shard 2af0a15d29b5e7c67a5882c880e440664dca6465; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:46:19.373 * Node d1b2e5c776a0140a34443a50f1bf197b6dbbe20a () is now part of shard 26a8f02b01ba81b2cf0b1ddf05180b54df1fe9e4
+1:M 02 Oct 2026 13:46:21.344 * Cluster state changed: ok

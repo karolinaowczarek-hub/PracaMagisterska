@@ -1,0 +1,31 @@
+1:C 02 Oct 2026 13:15:29.986 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 13:15:29.987 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 13:15:29.987 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 13:15:29.987 * Configuration loaded
+1:M 02 Oct 2026 13:15:29.987 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 13:15:29.987 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 13:15:29.988 * No cluster configuration found, I'm e323bc940489bc8e4484402a8cbc94bc5a4d271a
+1:M 02 Oct 2026 13:15:30.002 * Server initialized
+1:M 02 Oct 2026 13:15:30.002 * Ready to accept connections tcp
+1:M 02 Oct 2026 13:15:35.962 * configEpoch set to 4 via CLUSTER SET-CONFIG-EPOCH
+1:S 02 Oct 2026 13:15:37.965 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+1:S 02 Oct 2026 13:15:37.965 * Connecting to MASTER 172.34.0.13:6379
+1:S 02 Oct 2026 13:15:37.965 * MASTER <-> REPLICA sync started
+1:S 02 Oct 2026 13:15:37.965 * Cluster state changed: ok
+1:S 02 Oct 2026 13:15:37.966 * Non blocking connect for SYNC fired the event.
+1:S 02 Oct 2026 13:15:37.966 * Master replied to PING, replication can continue...
+1:S 02 Oct 2026 13:15:37.966 * Trying a partial resynchronization (request 74076dc563a9256c472e226c90b0d59a4620d599:1).
+1:S 02 Oct 2026 13:15:38.931 * Node 6c930e1ea8b55291cc04d8f48395d3ca4f98084c () is no longer master of shard 17fb74303deeaa990193882757122411a40e35e2; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 13:15:38.931 * Node 6c930e1ea8b55291cc04d8f48395d3ca4f98084c () is now part of shard 8598ccb52d7beabcea1b44366ca392706df486f6
+1:S 02 Oct 2026 13:15:40.555 * Node e9971b6315cfcdda5c481b8416d3fe45f86640f6 () is no longer master of shard b46aafcac300b095d5951c2b603ac5a69d8a8e88; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 13:15:40.555 * Node e9971b6315cfcdda5c481b8416d3fe45f86640f6 () is now part of shard f70f8512252656dbddf9d545c62a305caccabaaf
+1:S 02 Oct 2026 13:15:42.928 * Full resync from master: 6ef2cdeb001b5688b9e29b99fba441e73a5afd4a:14
+1:S 02 Oct 2026 13:15:42.929 * MASTER <-> REPLICA sync: receiving streamed RDB from master with EOF to disk
+1:S 02 Oct 2026 13:15:42.929 * Discarding previously cached master state.
+1:S 02 Oct 2026 13:15:42.929 * MASTER <-> REPLICA sync: Flushing old data
+1:S 02 Oct 2026 13:15:42.929 * MASTER <-> REPLICA sync: Loading DB in memory
+1:S 02 Oct 2026 13:15:42.939 * Loading RDB produced by version 7.4.11
+1:S 02 Oct 2026 13:15:42.939 * RDB age 0 seconds
+1:S 02 Oct 2026 13:15:42.939 * RDB memory usage when created 2.51 Mb
+1:S 02 Oct 2026 13:15:42.939 * Done loading RDB, keys loaded: 0, keys expired: 0.
+1:S 02 Oct 2026 13:15:42.939 * MASTER <-> REPLICA sync: Finished with success

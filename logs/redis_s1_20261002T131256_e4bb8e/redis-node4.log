@@ -1,0 +1,36 @@
+1:C 02 Oct 2026 13:13:01.081 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 13:13:01.081 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 13:13:01.081 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 13:13:01.081 * Configuration loaded
+1:M 02 Oct 2026 13:13:01.081 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 13:13:01.082 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 13:13:01.082 * No cluster configuration found, I'm 6a2d6e7c27976a54afd23f6197c8f333d2bf68d1
+1:M 02 Oct 2026 13:13:01.093 * Server initialized
+1:M 02 Oct 2026 13:13:01.093 * Ready to accept connections tcp
+1:M 02 Oct 2026 13:13:07.050 * configEpoch set to 4 via CLUSTER SET-CONFIG-EPOCH
+1:S 02 Oct 2026 13:13:09.053 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+1:S 02 Oct 2026 13:13:09.053 * Connecting to MASTER 172.34.0.13:6379
+1:S 02 Oct 2026 13:13:09.053 * MASTER <-> REPLICA sync started
+1:S 02 Oct 2026 13:13:09.053 * Cluster state changed: ok
+1:S 02 Oct 2026 13:13:09.053 * Non blocking connect for SYNC fired the event.
+1:S 02 Oct 2026 13:13:09.053 * Master replied to PING, replication can continue...
+1:S 02 Oct 2026 13:13:09.053 * Trying a partial resynchronization (request 4022d79c713065a0c5cb502a275f014fa0be38e2:1).
+1:S 02 Oct 2026 13:13:11.028 * Node 71684f79da5e92d8f1521e364941acb57e9babef () is no longer master of shard efed3bfec86902cf572fd94ed2b41383f1a5aed8; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 13:13:11.028 * Node 71684f79da5e92d8f1521e364941acb57e9babef () is now part of shard c1c3195fda5d22921e65701a003d72822dbf5822
+1:S 02 Oct 2026 13:13:13.036 * Node 915be06e7ea2cb03f7bc89fcc53c00aa97d52a12 () is no longer master of shard ea0a67521d0fa4004b9821ef4b2071882cf6e628; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 13:13:13.036 * Node 915be06e7ea2cb03f7bc89fcc53c00aa97d52a12 () is now part of shard 93cd1a678772b1b6e03da4e23bfbd8d192d0b16a
+1:S 02 Oct 2026 13:13:14.907 * Full resync from master: 5eb20090b56ccbb0ead980b99bcf70d0a330ae94:14
+1:S 02 Oct 2026 13:13:14.907 * MASTER <-> REPLICA sync: receiving streamed RDB from master with EOF to disk
+1:S 02 Oct 2026 13:13:14.907 * Discarding previously cached master state.
+1:S 02 Oct 2026 13:13:14.907 * MASTER <-> REPLICA sync: Flushing old data
+1:S 02 Oct 2026 13:13:14.908 * MASTER <-> REPLICA sync: Loading DB in memory
+1:S 02 Oct 2026 13:13:14.917 * Loading RDB produced by version 7.4.11
+1:S 02 Oct 2026 13:13:14.917 * RDB age 0 seconds
+1:S 02 Oct 2026 13:13:14.917 * RDB memory usage when created 2.44 Mb
+1:S 02 Oct 2026 13:13:14.917 * Done loading RDB, keys loaded: 0, keys expired: 0.
+1:S 02 Oct 2026 13:13:14.917 * MASTER <-> REPLICA sync: Finished with success
+1:S 02 Oct 2026 13:14:07.359 * FAIL message received from 71684f79da5e92d8f1521e364941acb57e9babef () about fc7e9016a342f08b7b04c110292d42f0345eb78c ()
+1:S 02 Oct 2026 13:14:07.359 # Cluster state changed: fail
+1:S 02 Oct 2026 13:14:08.203 * Cluster state changed: ok
+1:S 02 Oct 2026 13:15:01.867 * Clear FAIL state for node fc7e9016a342f08b7b04c110292d42f0345eb78c ():master without slots is reachable again.
+1:S 02 Oct 2026 13:15:01.867 * A failover occurred in shard c1c3195fda5d22921e65701a003d72822dbf5822; node fc7e9016a342f08b7b04c110292d42f0345eb78c () lost 0 slot(s) to node 71684f79da5e92d8f1521e364941acb57e9babef () with a config epoch of 7

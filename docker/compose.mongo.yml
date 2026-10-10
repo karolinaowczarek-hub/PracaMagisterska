@@ -1,0 +1,83 @@
+# MongoDB replica set: 3 members
+
+x-mongo-common: &mongo-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      BASE_IMAGE: mongo:7
+  image: capbench-mongo:local
+  cap_add:
+    - NET_ADMIN
+  healthcheck: &mongo-health
+    test: ["CMD-SHELL", "mongosh --quiet --eval 'quit(db.adminCommand({ping:1}).ok ? 0 : 1)'"]
+    interval: 3s
+    timeout: 5s
+    retries: 40
+    start_period: 15s
+  command: ["mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+  networks:
+    cap_mongo_client_net: {}
+    cap_mongo_cluster_net: {}
+
+services:
+  mongo-node1:
+    <<: *mongo-common
+    container_name: mongo-node1
+    hostname: mongo-node1
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-node1-data:/data/db
+    networks:
+      cap_mongo_client_net:
+        ipv4_address: 172.31.0.11
+      cap_mongo_cluster_net:
+        ipv4_address: 172.30.0.11
+
+  mongo-node2:
+    <<: *mongo-common
+    container_name: mongo-node2
+    hostname: mongo-node2
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-node2-data:/data/db
+    networks:
+      cap_mongo_client_net:
+        ipv4_address: 172.31.0.12
+      cap_mongo_cluster_net:
+        ipv4_address: 172.30.0.12
+
+  mongo-node3:
+    <<: *mongo-common
+    container_name: mongo-node3
+    hostname: mongo-node3
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo-node3-data:/data/db
+    networks:
+      cap_mongo_client_net:
+        ipv4_address: 172.31.0.13
+      cap_mongo_cluster_net:
+        ipv4_address: 172.30.0.13
+
+networks:
+  cap_mongo_cluster_net:
+    name: cap_mongo_cluster_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+  cap_mongo_client_net:
+    name: cap_mongo_client_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.0.0/16
+
+volumes:
+  mongo-node1-data:
+  mongo-node2-data:
+  mongo-node3-data:

@@ -1,0 +1,49 @@
+1:C 02 Oct 2026 13:53:21.291 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 13:53:21.291 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 13:53:21.291 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 13:53:21.291 * Configuration loaded
+1:M 02 Oct 2026 13:53:21.291 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 13:53:21.292 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 13:53:21.292 * No cluster configuration found, I'm 796acd7bb7f423b270152d21bcd62f2052e9df8a
+1:M 02 Oct 2026 13:53:21.303 * Server initialized
+1:M 02 Oct 2026 13:53:21.304 * Ready to accept connections tcp
+1:M 02 Oct 2026 13:53:27.005 * configEpoch set to 1 via CLUSTER SET-CONFIG-EPOCH
+1:M 02 Oct 2026 13:53:29.010 * Replica 172.34.0.15:6379 asks for synchronization
+1:M 02 Oct 2026 13:53:29.010 * Partial resynchronization not accepted: Replication ID mismatch (Replica asked for '627cd95f2a1bd2a42bcb6b81a2406cc592ad72f5', my replication IDs are '6647498056da2783158fc83340e45137fbdf1b46' and '0000000000000000000000000000000000000000')
+1:M 02 Oct 2026 13:53:29.010 * Replication backlog created, my new replication IDs are 'ed1d4897ea1053697a1b437a0312b2c34679a848' and '0000000000000000000000000000000000000000'
+1:M 02 Oct 2026 13:53:29.010 * Delay next BGSAVE for diskless SYNC
+1:M 02 Oct 2026 13:53:30.233 * Node 4c7d2a2661aa7fb1b89d5f3a863ec7dca4ec00e4 () is no longer master of shard 727ed3009127a767b5078ea6b26275ef3263c26d; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:53:30.233 * Node 4c7d2a2661aa7fb1b89d5f3a863ec7dca4ec00e4 () is now part of shard f925183e275ad3176d1421ea626b710431a921fd
+1:M 02 Oct 2026 13:53:30.773 * Node 92b0fae6b8ff6840f7f6ed4eea97bfef88e90c92 () is no longer master of shard f1f1648a218f69c4f884db30ba67ddca9cd38d7b; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:53:30.773 * Node 92b0fae6b8ff6840f7f6ed4eea97bfef88e90c92 () is now part of shard 4077395759ba738d4414d882ca2061584c5e53c4
+1:M 02 Oct 2026 13:53:31.940 * Cluster state changed: ok
+1:M 02 Oct 2026 13:53:32.241 * Node 3a8e0a6bd8cb5ed672c5df0bed1ca228b553cd2d () is no longer master of shard 65e2cc3c5a0b5135e079cab9ac0059cec12e2aa6; removed all 0 slot(s) it used to own
+1:M 02 Oct 2026 13:53:32.241 * Node 3a8e0a6bd8cb5ed672c5df0bed1ca228b553cd2d () is now part of shard 779f9fb0cf78bdead059af0c4b06c482f8cae70d
+1:M 02 Oct 2026 13:53:34.352 * Starting BGSAVE for SYNC with target: replicas sockets
+1:M 02 Oct 2026 13:53:34.353 * Background RDB transfer started by pid 90
+90:C 02 Oct 2026 13:53:34.353 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB
+1:M 02 Oct 2026 13:53:34.353 * Diskless rdb transfer, done reading from pipe, 1 replicas still up.
+1:M 02 Oct 2026 13:53:34.363 * Background RDB transfer terminated with success
+1:M 02 Oct 2026 13:53:34.363 * Streamed RDB transfer with replica 172.34.0.15:6379 succeeded (socket). Waiting for REPLCONF ACK from replica to enable streaming
+1:M 02 Oct 2026 13:53:34.363 * Synchronization with replica 172.34.0.15:6379 succeeded
+1:M 02 Oct 2026 13:54:24.384 # Cluster state changed: fail
+1:M 02 Oct 2026 13:55:06.627 # Disconnecting timedout replica (streaming sync): 172.34.0.15:6379
+1:M 02 Oct 2026 13:55:06.627 * Connection with replica 172.34.0.15:6379 lost.
+1:M 02 Oct 2026 13:55:12.781 * Configuration change detected. Reconfiguring myself as a replica of 3a8e0a6bd8cb5ed672c5df0bed1ca228b553cd2d ()
+1:S 02 Oct 2026 13:55:12.781 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+1:S 02 Oct 2026 13:55:12.781 * Connecting to MASTER 172.34.0.15:6379
+1:S 02 Oct 2026 13:55:12.781 * MASTER <-> REPLICA sync started
+1:S 02 Oct 2026 13:55:13.808 * Non blocking connect for SYNC fired the event.
+1:S 02 Oct 2026 13:55:13.808 * Master replied to PING, replication can continue...
+1:S 02 Oct 2026 13:55:13.808 * Trying a partial resynchronization (request ed1d4897ea1053697a1b437a0312b2c34679a848:24631428).
+1:S 02 Oct 2026 13:55:14.576 * Cluster state changed: ok
+1:S 02 Oct 2026 13:55:18.309 * Full resync from master: 04914a90a24a0b936d9307c3ef78fee100aff7f6:29265478
+1:S 02 Oct 2026 13:55:18.310 * MASTER <-> REPLICA sync: receiving streamed RDB from master with EOF to disk
+1:S 02 Oct 2026 13:55:18.323 * Discarding previously cached master state.
+1:S 02 Oct 2026 13:55:18.323 * MASTER <-> REPLICA sync: Flushing old data
+1:S 02 Oct 2026 13:55:18.326 * MASTER <-> REPLICA sync: Loading DB in memory
+1:S 02 Oct 2026 13:55:18.341 * Loading RDB produced by version 7.4.11
+1:S 02 Oct 2026 13:55:18.341 * RDB age 0 seconds
+1:S 02 Oct 2026 13:55:18.341 * RDB memory usage when created 7.59 Mb
+1:S 02 Oct 2026 13:55:18.349 * Done loading RDB, keys loaded: 9999, keys expired: 0.
+1:S 02 Oct 2026 13:55:18.349 * MASTER <-> REPLICA sync: Finished with success

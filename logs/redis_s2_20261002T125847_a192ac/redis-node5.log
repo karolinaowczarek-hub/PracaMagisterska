@@ -1,0 +1,21 @@
+1:C 02 Oct 2026 12:58:52.760 # WARNING: Changing databases number from 16 to 1 since we are in cluster mode
+1:C 02 Oct 2026 12:58:52.761 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 02 Oct 2026 12:58:52.761 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 02 Oct 2026 12:58:52.761 * Configuration loaded
+1:M 02 Oct 2026 12:58:52.761 * monotonic clock: POSIX clock_gettime
+1:M 02 Oct 2026 12:58:52.761 * Running mode=cluster, port=6379.
+1:M 02 Oct 2026 12:58:52.762 * No cluster configuration found, I'm 5e17f77f084079e6113dd5376d5bfb5d1e2ad3ce
+1:M 02 Oct 2026 12:58:52.775 * Server initialized
+1:M 02 Oct 2026 12:58:52.775 * Ready to accept connections tcp
+1:M 02 Oct 2026 12:58:58.741 * configEpoch set to 5 via CLUSTER SET-CONFIG-EPOCH
+1:S 02 Oct 2026 12:59:00.744 * Before turning into a replica, using my own master parameters to synthesize a cached master: I may be able to synchronize with the new master with just a partial transfer.
+1:S 02 Oct 2026 12:59:00.744 * Connecting to MASTER 172.34.0.11:6379
+1:S 02 Oct 2026 12:59:00.744 * MASTER <-> REPLICA sync started
+1:S 02 Oct 2026 12:59:00.744 * Cluster state changed: ok
+1:S 02 Oct 2026 12:59:00.745 * Non blocking connect for SYNC fired the event.
+1:S 02 Oct 2026 12:59:00.745 * Master replied to PING, replication can continue...
+1:S 02 Oct 2026 12:59:00.745 * Trying a partial resynchronization (request 1733c18eefc42d43a46181af53e4c7c785715f08:1).
+1:S 02 Oct 2026 12:59:01.706 * Node 064bef6b2e2b58dbce54b91ce740e241f5be7f13 () is no longer master of shard 0c1efba20249f0f7f142039cfc79a7c8c981f770; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 12:59:01.706 * Node 064bef6b2e2b58dbce54b91ce740e241f5be7f13 () is now part of shard ac4a345998aed0f137353379b090c1b3ca579b9b
+1:S 02 Oct 2026 12:59:01.806 * Node 8a87c9ff3d59c37c17a4cd31b005594308a48eb5 () is no longer master of shard 22da3765b4dc692211f506b5a940e7d3a0d62bd1; removed all 0 slot(s) it used to own
+1:S 02 Oct 2026 12:59:01.806 * Node 8a87c9ff3d59c37c17a4cd31b005594308a48eb5 () is now part of shard 0c91f1e49748acbcc52079397a8e11f264891ea6

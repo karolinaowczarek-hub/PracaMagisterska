@@ -1,0 +1,20 @@
+Bootstrapping replica pg-node3 from 172.28.0.11...
+172.28.0.11:5432 - accepting connections
+
+PostgreSQL Database directory appears to contain a database; Skipping initialization
+
+waiting for checkpoint
+30743/30743 kB (100%), 0/1 tablespace
+30743/30743 kB (100%), 1/1 tablespace
+2026-09-24 07:22:41.256 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-09-24 07:22:41.256 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-09-24 07:22:41.256 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-09-24 07:22:41.275 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-09-24 07:22:41.295 UTC [46] LOG:  database system was interrupted; last known up at 2026-09-24 07:22:39 UTC
+2026-09-24 07:22:43.138 UTC [46] LOG:  entering standby mode
+2026-09-24 07:22:43.138 UTC [46] LOG:  starting backup recovery with redo LSN 0/20000D8, checkpoint LSN 0/2000110, on timeline ID 1
+2026-09-24 07:22:43.160 UTC [46] LOG:  redo starts at 0/20000D8
+2026-09-24 07:22:43.164 UTC [46] LOG:  completed backup recovery with redo LSN 0/20000D8 and end LSN 0/3000050
+2026-09-24 07:22:43.164 UTC [46] LOG:  consistent recovery state reached at 0/3000050
+2026-09-24 07:22:43.164 UTC [1] LOG:  database system is ready to accept read-only connections
+2026-09-24 07:22:43.172 UTC [47] LOG:  started streaming WAL from primary at 0/4000000 on timeline 1

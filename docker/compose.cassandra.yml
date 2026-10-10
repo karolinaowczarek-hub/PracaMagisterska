@@ -1,0 +1,115 @@
+# Cassandra: 3 nodes, replication factor 3
+
+x-cassandra-common: &cassandra-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      BASE_IMAGE: cassandra:4.1
+  image: capbench-cassandra:local
+  cap_add:
+    - NET_ADMIN
+  entrypoint: ["bash", "/opt/capbench/cassandra-start.sh"]
+  environment: &cassandra-env
+    CASSANDRA_CLUSTER_NAME: capbench
+    CASSANDRA_SEEDS: "172.32.0.11"
+    CASSANDRA_ENDPOINT_SNITCH: SimpleSnitch
+    CASSANDRA_RPC_ADDRESS: 0.0.0.0
+    CASSANDRA_BROADCAST_RPC_ADDRESS: 127.0.0.1
+    MAX_HEAP_SIZE: 512M
+    HEAP_NEWSIZE: 128M
+  healthcheck: &cassandra-health
+    test: ["CMD-SHELL", "cqlsh 127.0.0.1 $$NATIVE_PORT -e 'SELECT release_version FROM system.local' >/dev/null 2>&1"]
+    interval: 5s
+    timeout: 10s
+    retries: 40
+    start_period: 40s
+  networks:
+    cap_cassandra_client_net: {}
+    cap_cassandra_cluster_net: {}
+
+services:
+  cassandra-node1:
+    <<: *cassandra-common
+    container_name: cassandra-node1
+    hostname: cassandra-node1
+    environment:
+      <<: *cassandra-env
+      CASSANDRA_LISTEN_ADDRESS: "172.32.0.11"
+      CASSANDRA_BROADCAST_ADDRESS: "172.32.0.11"
+      NATIVE_PORT: "9042"
+    ports:
+      - "9042:9042"
+    volumes:
+      - ./cassandra-start.sh:/opt/capbench/cassandra-start.sh:ro
+      - cassandra-node1-data:/var/lib/cassandra
+    networks:
+      cap_cassandra_client_net:
+        ipv4_address: 172.33.0.11
+      cap_cassandra_cluster_net:
+        ipv4_address: 172.32.0.11
+
+  cassandra-node2:
+    <<: *cassandra-common
+    container_name: cassandra-node2
+    hostname: cassandra-node2
+    depends_on:
+      cassandra-node1:
+        condition: service_healthy
+    environment:
+      <<: *cassandra-env
+      CASSANDRA_LISTEN_ADDRESS: "172.32.0.12"
+      CASSANDRA_BROADCAST_ADDRESS: "172.32.0.12"
+      NATIVE_PORT: "9043"
+    ports:
+      - "9043:9043"
+    volumes:
+      - ./cassandra-start.sh:/opt/capbench/cassandra-start.sh:ro
+      - cassandra-node2-data:/var/lib/cassandra
+    networks:
+      cap_cassandra_client_net:
+        ipv4_address: 172.33.0.12
+      cap_cassandra_cluster_net:
+        ipv4_address: 172.32.0.12
+
+  cassandra-node3:
+    <<: *cassandra-common
+    container_name: cassandra-node3
+    hostname: cassandra-node3
+    depends_on:
+      cassandra-node2:
+        condition: service_healthy
+    environment:
+      <<: *cassandra-env
+      CASSANDRA_LISTEN_ADDRESS: "172.32.0.13"
+      CASSANDRA_BROADCAST_ADDRESS: "172.32.0.13"
+      NATIVE_PORT: "9044"
+    ports:
+      - "9044:9044"
+    volumes:
+      - ./cassandra-start.sh:/opt/capbench/cassandra-start.sh:ro
+      - cassandra-node3-data:/var/lib/cassandra
+    networks:
+      cap_cassandra_client_net:
+        ipv4_address: 172.33.0.13
+      cap_cassandra_cluster_net:
+        ipv4_address: 172.32.0.13
+
+networks:
+  cap_cassandra_cluster_net:
+    name: cap_cassandra_cluster_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.32.0.0/16
+  cap_cassandra_client_net:
+    name: cap_cassandra_client_net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.33.0.0/16
+
+volumes:
+  cassandra-node1-data:
+  cassandra-node2-data:
+  cassandra-node3-data:
